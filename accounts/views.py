@@ -7,6 +7,7 @@ from .models import Orders
 
 # Create your views here.
 def signin(request):
+    vehicles = Vehicle.objects.all()
     if request.user.is_authenticated:
         return redirect('account:profile')
     if request.method == 'POST':
@@ -17,17 +18,18 @@ def signin(request):
             return redirect('account:profile')
     else:
         form = AuthenticationForm() 
-    return render(request, 'signin.html', {'form': form})
+    return render(request, 'signin.html', {'form': form, 'vehicles': vehicles})
 
 def signup(request):
+    vehicles = Vehicle.objects.all()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home:index')
+            return redirect('account:signin')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form, 'vehicles': vehicles})
 
 
 def signout(request):
@@ -36,9 +38,10 @@ def signout(request):
 
 def profile(request):
     vehicles = Vehicle.objects.all()
-    orders = Orders.objects.all()
     if not request.user.is_authenticated:
         return redirect("account:signin")
+
+    orders = Orders.objects.filter(order_user=request.user)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
