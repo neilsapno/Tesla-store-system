@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'design.css' %}">
+{% endblock css %}
+{% block title %}
+  Design Your Car
+{% endblock title %}
+{% block content %}
+  <div class="container-fluid content">
+    <div class="row">
+      <div class="col-md-9">
+        <h1>Design Your Car</h1>
+        <div id="carouselVeh" class="carousel slide">
+          <div class="carousel-indicators">
+            <button type="button"
+                    data-bs-target="#carouselVeh"
+                    data-bs-slide-to="0"
+                    class="active bg-dark"
+                    aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button"
+                    data-bs-target="#carouselVeh"
+                    data-bs-slide-to="1"
+                    aria-label="Slide 2"
+                    class="bg-dark"></button>
+            <button type="button"
+                    data-bs-target="#carouselVeh"
+                    data-bs-slide-to="2"
+                    aria-label="Slide 3"
+                    class="bg-dark"></button>
+            <button type="button"
+                    data-bs-target="#carouselVeh"
+                    data-bs-slide-to="3"
+                    aria-label="Slide 4"
+                    class="bg-dark"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{ vehicle.vehicle_image_1 }}"
+                   class="d-block w-100"
+                   alt="..."
+                   width="auto"
+                   height="auto">
+            </div>
+            <div class="carousel-item">
+              <img src="{{ vehicle.vehicle_image_2 }}"
+                   class="d-block w-100"
+                   alt="..."
+                   width="auto"
+                   height="auto">
+            </div>
+            <div class="carousel-item">
+              <img src="{{ vehicle.vehicle_image_3 }}"
+                   class="d-block w-100"
+                   alt="..."
+                   width="auto"
+                   height="auto">
+            </div>
+            <div class="carousel-item">
+              <img src="{{ vehicle.vehicle_image_4 }}"
+                   class="d-block w-100"
+                   alt="..."
+                   width="auto"
+                   height="auto">
+            </div>
+          </div>
+          <button class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselVeh"
+                  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselVeh"
+                  data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-3 overflow-auto">
+        <div class="container text-center p-5">
+          <h1>{{ vehicle.vehicle_name }}</h1>
+          <div class="stat">
+            <div class="row mt-5 h-50">
+              <div class="col-md-4">
+                <h5>{{ vehicle.vehicle_range }}</h5>
+                <small>Range (WLTP)</small>
+              </div>
+              <div class="col-md-4">
+                <h5>{{ vehicle.vehicle_topspeed }}</h5>
+                <small>Top Speed</small>
+              </div>
+              <div class="col-md-4">
+                <h5>{{ vehicle.vehicle_acceleration }}</h5>
+                <small>0-100 km/h</small>
+              </div>
+            </div>
+          </div>
+          <form method="post" action="{% url 'vehicle:vehicle_checkout' %}">
+            {% csrf_token %}
+            <input type="number" name="veh_id" value="{{ vehicle.id }}" hidden>
+            <h4 class="mt-5">Color:</h4>
+            <div class="row mt-2 align-items-center text-center">
+              <div class="col-6">
+                <input type="radio"
+                       class="btn-check"
+                       value="{{ vehicle.vehicle_image_1_name }}"
+                       name="colorOptions"
+                       id="colorOption1"
+                       autocomplete="off"
+                       checked>
+                <label class="btn btn-outline-primary w-100" for="colorOption1">{{ vehicle.vehicle_image_1_name }}</label>
+              </div>
+              <div class="col-6">
+                <input type="radio"
+                       class="btn-check"
+                       value="{{ vehicle.vehicle_image_2_name }}"
+                       name="colorOptions"
+                       id="colorOption2"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary w-100" for="colorOption2">{{ vehicle.vehicle_image_2_name }}</label>
+              </div>
+              <div class="col-6 mt-2">
+                <input type="radio"
+                       class="btn-check"
+                       value="{{ vehicle.vehicle_image_3_name }}"
+                       name="colorOptions"
+                       id="colorOption3"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary w-100" for="colorOption3">{{ vehicle.vehicle_image_3_name }}</label>
+              </div>
+              <div class="col-6 mt-2">
+                <input type="radio"
+                       class="btn-check"
+                       value="{{ vehicle.vehicle_image_4_name }}"
+                       name="colorOptions"
+                       id="colorOption4"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary w-100" for="colorOption4">{{ vehicle.vehicle_image_4_name }}</label>
+              </div>
+            </div>
+            <h4 class="mt-5">Wheel:</h4>
+            <div class="row mt-2 align-items-center text-center">
+              <div class="col">
+                <input type="radio"
+                       class="btn-check"
+                       name="wheelOptions"
+                       id="wheelOption1"
+                       autocomplete="off"
+                       value="{{ vehicle.vehicle_wheel_1_name }}"
+                       checked>
+                <label class="btn btn-outline-primary" for="wheelOption1">
+                  <img src="{{ vehicle.vehicle_wheel_1_image }}"
+                       width="50"
+                       height="50"
+                       alt="wheel" />
+                </label>
+              </div>
+              <div class="col">
+                <input type="radio"
+                       class="btn-check"
+                       name="wheelOptions"
+                       id="wheelOption2"
+                       autocomplete="off"
+                       value="{{ vehicle.vehicle_wheel_2_name }}">
+                <label class="btn btn-outline-primary" for="wheelOption2">
+                  <img src="{{ vehicle.vehicle_wheel_2_image }}"
+                       width="50"
+                       height="50"
+                       alt="wheel" />
+                </label>
+              </div>
+            </div>
+            <h4 class="mt-5">Interior:</h4>
+            <div class="row mt-2">
+              <div class="col">
+                <input type="radio"
+                       value="White"
+                       class="btn-check"
+                       name="interiorOptions"
+                       id="interiorOption1"
+                       autocomplete="off"
+                       checked>
+                <label class="btn btn-outline-primary" for="interiorOption1">White</label>
+                <input type="radio"
+                       value="Black"
+                       class="btn-check"
+                       name="interiorOptions"
+                       id="interiorOption2"
+                       autocomplete="off">
+                <label class="btn btn-outline-primary" for="interiorOption2">Black</label>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-md-7 my-auto">
+                {% load humanize %}
+                <h5>₱{{ vehicle.vehicle_price|intcomma }}</h5>
+              </div>
+              <div class="col-md-5 my-auto">
+                <button type="submit" class="btn btn-primary">Order Now</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+  <script src="{% static 'nav.js' %}"></script>
+  <script src="{% static 'carousel.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,36 @@
+.brand-logo {
+  margin-left: 10px;
+  height: 16px;
+}
+
+nav {
+    background: transparent;
+    height: 75px;
+}
+
+#subheader-vh {
+    height: 25vh;
+    overflow: hidden;
+}
+
+#subheader-dscvr {
+    height: 25vh;
+    overflow: hidden;
+}
+
+.sub-prod-name {
+    margin-bottom: 0;
+}
+
+.sub-prod-action {
+    text-decoration-color: grey;
+    color: grey;
+}
+
+.sub-prod-img {
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+}

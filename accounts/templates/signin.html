@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign In{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'signin.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container">
+        <div class="content">
+            <div class="card-container mx-auto">
+                <div class="card w-100 h-100">
+                    <div class="card-body row p-0">
+                        <div class="col">
+                            <div class="bg-dark rounded h-100 p-0 m-0 w-100">
+                                <div class="d-flex justify-content-center text-center align-items-center h-100">
+                                    <div class="text-white">
+                                        <h1 class="fw-bold">Welcome to Tesla</h1>
+                                        <h6 class="mt-5">No account yet?</h6>
+                                        <a href="{% url 'account:signup' %}">
+                                            <button type="button" class="btn btn-outline-light text-white">Sign up</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="p-4">
+                            <h1 class="text-center fw-bold">Sign In</h1>
+                            <p class="lead text-center">Please login to continue</p>
+                            <form action="" method="post" class="form">
+                                    {% csrf_token %}
+                                    <small class="text-danger">{{ form.non_field_errors | striptags }}</small>
+                                    {% for field in form %}
+                                        <div class="form-group mt-4">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                        </div>
+                                    {% endfor %}
+                                <button type="submit" class="btn btn-primary position-absolute btn-signin">Sign In</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'nav.js' %}"></script>
+{% endblock content %}

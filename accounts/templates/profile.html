@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Profile | Tesla
+{% endblock title %}
+{% block content %}
+    <div class="container content">
+        <div class="card border border-2 shadow mx-auto p-5"
+             style="max-width: 55%">
+            <h2>Account Information</h2>
+            {% if msg %}<p class="text-info">{{ msg }}</p>{% endif %}
+            <div class="mt-3 border-bottom border-2">
+                <h6>Username:</h6>
+                <h4>{{ user.username }}</h4>
+            </div>
+            <div class="mt-2 border-bottom border-2">
+                <h6>Email:</h6>
+                <h4>{{ user.email }}</h4>
+            </div>
+            <div class="mt-2 border-bottom border-2">
+                <h6>First Name:</h6>
+                <h4>{{ user.first_name }}</h4>
+            </div>
+            <div class="mt-2 border-bottom border-2">
+                <h6>Last Name:</h6>
+                <h4>{{ user.last_name }}</h4>
+            </div>
+            <div class="mt-2 border-bottom border-2">
+                <h6>Password:</h6>
+                <div class="row">
+                    <h4 class="col-10 mt-1">************</h4>
+                    <a id="show-cpf" class="text-info col-2" href="#">Change</a>
+                </div>
+                <div class="d-none" id="cp-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row gap-1">
+                            <input class="input col-md-auto"
+                                   type="password"
+                                   placeholder="Old Password"
+                                   name="old_password"
+                                   autocomplete="current-password"
+                                   autofocus
+                                   required
+                                   id="id_old_password">
+                            <input class="input col-md-auto"
+                                   type="password"
+                                   placeholder="New Password"
+                                   name="new_password1"
+                                   autocomplete="new-password"
+                                   required
+                                   id="id_new_password1">
+                            <input class="input col-md-auto"
+                                   type="password"
+                                   placeholder="Confirm New Password"
+                                   name="new_password2"
+                                   autocomplete="new-password"
+                                   required
+                                   id="id_new_password2">
+                            <span class="helptext">
+                                <ul>
+                                    <li>Your password can’t be too similar to your other personal information.</li>
+                                    <li>Your password must contain at least 8 characters.</li>
+                                    <li>Your password can’t be a commonly used password.</li>
+                                    <li>Your password can’t be entirely numeric.</li>
+                                </ul>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <button class="col-2 btn btn-info float-right" type="submit">Save</button>
+                            <button class="col-2 ms-2 btn btn-warning float-right"
+                                    type="reset"
+                                    id="cancel_cp">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-center mt-4">Your Orders:</h4>
+        <div class="row overflow-auto">
+            {% for order in orders %}
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ order.order_vehicle.vehicle_custom_vehicle.vehicle_image_3 }}" class="card-img-top" alt="order">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ order.order_vehicle.vehicle_custom_vehicle.vehicle_name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">₱{{ order.order_total }}</h6>
+                            <p class="card-text">{{ order.order_date }}</p>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'nav.js' %}"></script>
+    <script src="{% static 'profile.js' %}"></script>
+{% endblock content %}

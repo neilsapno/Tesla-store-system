@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Tesla | Electric Cars & Clean Energy
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container-fluid content">
+        <div class="row min-vh-100">
+            {% for vehicle in vehicles %}
+                <div class="col-12 p-0">
+                    <div class="section-hero text-center"
+                         style="background-image: url('{{ vehicle.vehicle_home_image }}')">
+                        <h1 class="pt-5 section-title">{{ vehicle.vehicle_name }}</h1>
+                        <div style="height: 70%;"></div>
+                        <a class="btn btn-primary section-order"
+                           href="{% url 'vehicle:vehicle_custom' vehicle.id %}">Custom Order</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'nav.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign In{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'signup.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container">
+        <div class="content mt-3">
+            <div class="card-container mx-auto">
+                <div class="card w-100 h-100">
+                    <div class="card-body row p-0">
+                        <div class="col">
+                            <div class="bg-primary rounded h-100 p-0 m-0 w-100">
+                                <div class="d-flex justify-content-center text-center align-items-center h-100">
+                                    <div class="text-white">
+                                        <h1 class="fw-bold">Welcome to The Waste Compass</h1>
+                                        <h6 class="mt-5">Already have an account?</h6>
+                                        <a href="{% url 'account:signin' %}">
+                                            <button type="button" class="btn btn-outline-light text-white">Sign in</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="px-0 p-4">
+                            <h1 class="text-center fw-bold">Sign Up</h1>
+                            <p class="lead text-center">Please login to continue</p>
+                            <form action="" method="post" class="form">
+                                    {% csrf_token %}
+                                    <small class="text-danger">{{ form.non_field_errors | striptags }}</small>
+                                    {% for field in form %}
+                                        <div class="form-group mt-4">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                            <small class="text-danger">{{ field.errors | striptags }}</small>
+                                        </div>
+                                    {% endfor %}
+                                <button type="submit"
+                                        class="btn btn-primary position-absolute btn-signin p-3 py-2">Sign Up</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'nav.js' %}"></script>
+{% endblock content %}
